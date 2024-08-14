@@ -1,34 +1,8 @@
-# Memory-Card-Game
+# React + Vite
 
-This project is a part of the "The Odin Project" [curriculum](https://www.theodinproject.com/).
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Table of contents
+Currently, two official plugins are available:
 
-- [Overview](#overview)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-
-## Overview
-
-### Screenshot
-
-![Solution Preview](./public/preview.png)
-
-### Links
-
-- Repository URL: [View Code](https://github.com/romaleks/Memory-Card-Game)
-- Live Site URL: [Live Preview](https://romaleks.github.io/Memory-Card-Game/)
-
-## My process
-
-### Built with
-
-- React
-- React Functional Components
-- React useState and useEffect Hooks
-- Sass
-- Prettier
-- Webpack
-- Visual Studio Code
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
