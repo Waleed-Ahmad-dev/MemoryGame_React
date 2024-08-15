@@ -1,15 +1,15 @@
+import Cards from './components/Cards'
+import Header from './components/Header'
+import './index.css'
 
 function App() {
-  return (
-    <div>
-      <>
-        <div>
 
-        </div>
-      </>
-    </div>
+  return (
+    <>
+      <Header />
+      <Cards />
+    </>
   )
 }
 
 export default App
-

@@ -1,0 +1,30 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.Text {
+    margin: 20px;
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: 1px;
+    background-size: 200%;
+    white-space: nowrap;
+}
+.h1 {
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: background-pan 5s linear infinite;
+    animation: background-pan 5s linear infinite;
+    background: linear-gradient(90deg, #12c2e9, #c471ed, #f64f59, #12c2e9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-size: 200%;
+    white-space: nowrap; 
+    display: block;
+    font-size: 2em;
+}
+.h1focus-visible {
+    outline: -webkit-focus-ring-color auto 1px;
+}
