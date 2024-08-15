@@ -28,3 +28,13 @@ body {
 .h1focus-visible {
     outline: -webkit-focus-ring-color auto 1px;
 }
+.score-board {
+    margin: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 10px;
+    color: white;
+    text-align: left;
+    
+}
