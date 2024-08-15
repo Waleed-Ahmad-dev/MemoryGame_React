@@ -1,92 +1,100 @@
 /* eslint-disable no-unused-vars */
 import Card from "./Card";
-import '../styles/Cards.css'
+import '../styles/Card.css'
 import ScoreBoard from "./ScoreBoard";
 import React, { useState } from 'react';
-
+import WinPage from './winPage';
+import LosePage from "./LosePage";
 export default function Cards() {
 
     const [score, setScore] = useState(0);
     const [clickedCards, setClickedCards] = useState([]);
     const [bestScore, setBestScore] = useState(0);
+    const [cardOrder, setCardOrder] = useState([
+        { name: "Abaddon", image: '/abaddon.png' },
+        { name: "Bane", image: '/bane.png' },
+        { name: "Chaos Knight", image: '/chaos_knight.png' },
+        { name: "Ember Spirit", image: '/ember_spirit.png' },
+        { name: "Faceless Void", image: '/faceless_void.png' },
+        { name: "Lina", image: '/lina.png' },
+        { name: "Lion", image: '/lion.png' },
+        { name: "Necrophos", image: '/necrophos.png' },
+        { name: "Obsidian Destroyer", image: '/obsidian_destroyer.png' },
+        { name: "Wraith King", image: '/wraith_king.png' }
+    ]);
+    const [isShuffling, setIsShuffling] = useState(false);
+    const [showWinModal, setShowWinModal] = useState(false);
+    const [showLoseModal, setShowLoseModal] = useState(false);
+
+    const shuffleCards = () => {
+        setIsShuffling(true); // Start animation
+        const shuffled = [...cardOrder];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        setCardOrder(shuffled);
+    
+        // Remove the animation class after it finishes
+        setTimeout(() => {
+            setIsShuffling(false);
+        }, 600); // Duration matches the animation time
+    };
 
     const handleCardClick = (cardName) => {
         if (clickedCards.includes(cardName)) {
-            // Card clicked twice: reset score
+            // User loses the game
             if (score > bestScore) {
-                setBestScore(score); // Update best score if current score is higher
+                setBestScore(score);
             }
             setScore(0);
             setClickedCards([]);
+            setShowLoseModal(true); // Show lose modal
         } else {
-            // Increase score and add card to history
             setScore(prevScore => {
                 const newScore = prevScore + 1;
                 if (newScore > bestScore) {
-                    setBestScore(newScore); // Update best score if new score is higher
+                    setBestScore(newScore);
                 }
                 return newScore;
             });
-            setClickedCards(prevClickedCards => [...prevClickedCards, cardName]);
+            setClickedCards(prevClickedCards => {
+                const newClickedCards = [...prevClickedCards, cardName];
+                if (newClickedCards.length === cardOrder.length) {
+                    setShowWinModal(true); // Show win modal if user wins
+                }
+                return newClickedCards;
+            });
         }
+        shuffleCards();
     };
+
+    const handleRestart = () => {
+        setShowWinModal(false);
+        setShowLoseModal(false);
+        setScore(0);
+        setClickedCards([]);
+        shuffleCards(); // Optionally shuffle the cards on restart
+    };
+
 
     return (
         <>
+            {showWinModal && <WinPage onRestart={handleRestart} />}
+            {showLoseModal && <LosePage onRestart={handleRestart} />}
             <div>
-                <ScoreBoard Score={score} bestScore={bestScore}/>
+                <ScoreBoard Score={score} bestScore={bestScore} />
             </div>
-            <div className='card-contanier'>
-                <Card name="Abaddon" image='/abaddon.png' onClick={() => {
-                    console.log('You clicked Abaddon!')
-                    handleCardClick('Abaddon')
-                }}/>
-                    <Card name="Bane" image='/bane.png' onClick={() => {
-                    console.log('You clicked Bane!');
-                    handleCardClick('Bane')
-                }}/>
-
-                <Card name="Chaos Knight" image='/chaos_knight.png' onClick={() => {
-                    console.log('You clicked Chaos Knight!');
-                    handleCardClick('Chaos Knight')
-                }}/>
-
-                <Card name="Ember Spirit" image='/ember_spirit.png' onClick={() => {
-                    console.log('You clicked Ember Spirit!');
-                    handleCardClick('Ember Spirit')
-                }}/>
-
-                <Card name="Faceless Void" image='/faceless_void.png' onClick={() => {
-                    console.log('You clicked Faceless Void!');
-                    handleCardClick('Faceless Void')
-                }}/>
-
-                <Card name="Lina" image='/lina.png' onClick={() => {
-                    console.log('You clicked Lina!');
-                    handleCardClick('Lina')
-                }}/>
-
-                <Card name="Lion" image='/lion.png' onClick={() => {
-                    console.log('You clicked Lion!');
-                    handleCardClick('Lion')
-                }}/>
-
-                <Card name="Necrophos" image='/necrophos.png' onClick={() => {
-                    console.log('You clicked Necrophos!');
-                    handleCardClick('Necrophos')
-                }}/>
-
-                <Card name="Obsidian Destroyer" image='/obsidian_destroyer.png' onClick={() => {
-                    console.log('You clicked Obsidian Destroyer!');
-                    handleCardClick('Obsidian Destroyer')
-                }}/>
-
-                <Card name="Wraith King" image='/wraith_king.png' onClick={() => {
-                    console.log('You clicked Wraith King!');
-                    handleCardClick('Wraith King')
-                }}/>
+            <div className={`card-container ${isShuffling ? 'shuffling' : ''}`}>
+                {cardOrder.map(card => (
+                    <Card
+                        key={card.name}
+                        name={card.name}
+                        image={card.image}
+                        onClick={() => handleCardClick(card.name)}
+                    />
+                ))}
             </div>
         </>
-        
-    )
+    );
 }

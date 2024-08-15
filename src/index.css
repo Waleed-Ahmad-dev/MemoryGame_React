@@ -38,3 +38,66 @@ body {
     text-align: left;
     
 }
+.win-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.win-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+}
+.reset-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #12c2e9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    &:hover {
+        background-color: #0f93b4;
+    }
+    &:active {
+        background-color: #0e86a2;
+    }
+    &:focus {
+        outline: none;
+    }
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    @media (max-width: 600px) {
+        width: 100%;
+        margin-top: 0;
+    }
+    @media (max-height: 500px) {
+        height: 100%;
+    }
+    @media (max-width: 600px) and (max-height: 500px) {
+        width: 100%;
+        height: 100%;
+    }
+    @media (max-width: 400px) {
+        font-size: 0.8em;
+    }
+    @media (max-height: 300px) {
+        font-size: 0.6em;
+    }
+    @media (max-width: 400px) and (max-height: 300px) {
+        font-size: 0.6em;
+    }
+}
